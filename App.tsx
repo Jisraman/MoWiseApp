@@ -8,6 +8,7 @@
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import type {PropsWithChildren} from 'react';
+import Orientation from 'react-native-orientation-locker';
 import {
   SafeAreaView,
   ScrollView,
@@ -59,6 +60,10 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 function App(): React.JSX.Element {
     useEffect(() => {
       SplashScreen.hide();  // Oculta la splash screen cuando la app está lista
+    }, []);
+    useEffect(() => {
+      // Lock the orientation to portrait
+      Orientation.lockToPortrait();
     }, []);
   const isDarkMode = useColorScheme() === 'dark';
 

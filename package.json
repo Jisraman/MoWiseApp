@@ -12,6 +12,7 @@
   "dependencies": {
     "react": "18.2.0",
     "react-native": "^0.74.2",
+    "react-native-orientation-locker": "^1.7.0",
     "react-native-splash-screen": "^3.3.0",
     "splash-screen": "^4.0.1"
   },
