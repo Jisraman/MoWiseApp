@@ -47,40 +47,40 @@ function Menu() {
         value={index}
         onChange={(e) => setIndex(e)}
         indicatorStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'black',
           height: 3,
         }}
         variant="primary"
       >
         <Tab.Item
           containerStyle={() => ({
-            backgroundColor: "#026197"
+            backgroundColor: "white"
           })}
-          icon={<FontAwesomeIcon icon={faGlobe} size={40}/>}
+          icon={<FontAwesomeIcon icon={faGlobe} size={20}/>}
         />
         <Tab.Item
           containerStyle={() => ({
-            backgroundColor: "#026197"
+            backgroundColor: "white"
           })}
-          icon={<FontAwesomeIcon icon={faHandshakeAngle} size={40}/>}
+          icon={<FontAwesomeIcon icon={faHandshakeAngle} size={20}/>}
         />
         <Tab.Item
           containerStyle={() => ({
-            backgroundColor: "#026197"
+            backgroundColor: "white"
           })}
-          icon={<FontAwesomeIcon icon={faHome} size={40}/>}
+          icon={<FontAwesomeIcon icon={faHome} size={20}/>}
         />
         <Tab.Item
           containerStyle={() => ({
-            backgroundColor: "#026197"
+            backgroundColor: "white"
           })}
-          icon={<FontAwesomeIcon icon={faWallet} size={40}/>}
+          icon={<FontAwesomeIcon icon={faWallet} size={20}/>}
         />
         <Tab.Item
           containerStyle={() => ({
-            backgroundColor: "#026197"
+            backgroundColor: "white"
           })}
-          icon={<FontAwesomeIcon icon={faUser} size={40}/>}
+          icon={<FontAwesomeIcon icon={faUser} size={20}/>}
         />
       </Tab>
 

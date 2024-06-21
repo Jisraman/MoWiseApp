@@ -1,60 +1,115 @@
 import * as React from 'react';
-import { View, Image, Text, Button, ScrollView, StyleSheet } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Card, Divider } from '@rneui/themed'; // Importar componentes de React Native Elements
+import { View, ScrollView, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Card, Text, Button, Image, Divider } from 'react-native-elements';
 
-function Home() {
+// Mock de datos de testimonios
+const testimonies = [
+  {
+    id: 1,
+    name: 'Fernanda Silva',
+    text: 'Excelente servicio, me ayudaron a manejar mis finanzas de manera efectiva.',
+    avatar: require('../../assets/images/content/t1.png'),
+  },
+  {
+    id: 2,
+    name: 'Alejandro Vargas',
+    text: 'Gracias a esta app, he podido ahorrar y planificar mejor mis inversiones.',
+    avatar: require('../../assets/images/content/t2.png'),
+  },
+  {
+    id: 3,
+    name: 'María González',
+    text: 'Gracias a esta app, he podido ahorrar y planificar mejor mis inversiones.',
+    avatar: require('../../assets/images/content/t3.png'),
+  },
+  // Añadir más testimonios según sea necesario
+];
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const imageHeight = windowHeight * 0.5;
+
+function Home({ navigation }) {
+  const renderTestimonies = () => (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {testimonies.map((testimony) => (
+        <Card key={testimony.id} containerStyle={styles.testimonyCard}>
+          <Image source={testimony.avatar} style={styles.testimonyAvatar} />
+          <Text style={styles.testimonyText}>{testimony.text}</Text>
+          <Text style={styles.testimonyName}>{testimony.name}</Text>
+        </Card>
+      ))}
+    </ScrollView>
+  );
+
   return (
-    <SafeAreaProvider>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Image
-          source={require('../../assets/images/content/main.png')} // Ruta de la imagen
-          style={styles.image} // Ajustar dimensiones
-        />
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scrollViewContent}>
+        {/* Imagen principal */}
+        <ImageBackground
+          source={require('../../assets/images/content/main-top.png')}
+          style={styles.image}
+        >
+          <Text style={styles.headerText}>Bienvenido a <Text style={styles.highlightedText}>MoWi$e</Text></Text>
+        </ImageBackground>
+
+        {/* Contenido principal */}
+        <View style={styles.contentContainer}>
+
+          <Text style={styles.sectionTitle}>MoWi$e</Text>
+          <Text style={styles.description}>
+            Aquí podrás encontrar información sobre cómo manejar tus finanzas de manera eficiente,
+            consejos de ahorro, inversión y mucho más. Explora nuestras secciones para obtener
+            el máximo beneficio de nuestros servicios.
+          </Text>
+          <Button title="Conoce más" onPress={() => navigation.navigate('WebOficial')} />
+
+          <Divider style={styles.divider} />
+
+          <Text style={styles.sectionTitle}>Últimas Noticias</Text>
+          <Text style={styles.description}>
+            Mantente al día con las últimas noticias del mundo financiero y económico.
+          </Text>
+          <Button
+            title="Leer noticias"
+            onPress={() => {
+              // Lógica para navegar a la sección de noticias
+              // navigation.navigate('Noticias')
+            }}
+          />
+
+          <Divider style={styles.divider} />
+
+          <Text style={styles.sectionTitle}>Testimonios</Text>
+          {renderTestimonies()}
+
+          <Button
+            title="Ver todos los testimonios"
+            onPress={() => {
+              // Lógica para navegar a la sección de testimonios
+              // navigation.navigate('Testimonios')
+            }}
+          />
         
-        <View style={styles.headerView}>
-          <Text style={styles.headerText}>
-            Invierte y haz crecer tu dinero sabiamente
+
+        <Divider style={styles.divider} />
+
+          <Text style={styles.sectionTitle}>Únete</Text>
+          <Text style={styles.description}>
+            Crea una cuenta ya y forma parte de las miles de personas que administran y aprovechan mejor sus recursos.
           </Text>
         </View>
-
-        <View style={styles.cardContainer}>
-          <Card containerStyle={styles.card}>
-            <Card.Title>Préstamos</Card.Title>
-            <Card.Divider />
-            <Text style={styles.cardText}>Solicita un préstamo personal o hipotecario con tasas competitivas.</Text>
-            <Button title="Más información" onPress={() => { /* Navegar a la sección de préstamos */ }} />
-          </Card>
-
-          <Divider style={styles.divider} />
-
-          <Card containerStyle={styles.card}>
-            <Card.Title>Fondos de ahorro</Card.Title>
-            <Card.Divider />
-            <Text style={styles.cardText}>Abre una cuenta de ahorro y haz crecer tu dinero de forma segura.</Text>
-            <Button title="Ver opciones" onPress={() => { /* Navegar a la sección de fondos */ }} />
-          </Card>
-
-          <Divider style={styles.divider} />
-
-          <Card containerStyle={styles.card}>
-            <Card.Title>Crédito</Card.Title>
-            <Card.Divider />
-            <Text style={styles.cardText}>Obtén una tarjeta de crédito con beneficios exclusivos.</Text>
-            <Button title="Solicitar tarjeta" onPress={() => { /* Navegar a la sección de crédito */ }} />
-          </Card>
-
-          <Divider style={styles.divider} />
-
-          <Card containerStyle={styles.card}>
-            <Card.Title>Inversiones</Card.Title>
-            <Card.Divider />
-            <Text style={styles.cardText}>Invierte en diversos instrumentos financieros y haz crecer tu patrimonio.</Text>
-            <Button title="Explorar inversiones" onPress={() => { /* Navegar a la sección de inversiones */ }} />
-          </Card>
-        </View>
+        {/* Botón de inicio de sesión */}
+        <Button
+          title="¡Empieza ya! Inicia sesión"
+          onPress={() => {
+            // Lógica para navegar a la pantalla de inicio de sesión
+            // navigation.navigate('Login')
+          }}
+          containerStyle={styles.loginButtonContainer}
+        />
       </ScrollView>
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 }
 
@@ -65,34 +120,65 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 200,
-  },
-  headerView: {
-    flex: 1,
+    height: imageHeight, // Ajustar la altura según necesidades
+    resizeMode: 'cover',
+    justifyContent: 'center', // Centrar contenido dentro de ImageBackground
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#4CAF50',
+  },
+  highlightedText: {
+    fontWeight: 'bold',
+    color: '#ff7f50', // Puedes ajustar el color aquí según tus preferencias
   },
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semi-transparente para mejorar la legibilidad del texto
+    padding: 10,
+    borderRadius: 5,
   },
-  cardContainer: {
+  contentContainer: {
     padding: 20,
   },
-  card: {
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  testimonyCard: {
     borderRadius: 10,
     padding: 10,
+    alignItems: 'center',
+    marginRight: 10,
+    marginBottom: 30,
+    width: 300,
   },
-  cardText: {
+  testimonyAvatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     marginBottom: 10,
-    fontSize: 16,
+  },
+  testimonyText: {
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  testimonyName: {
+    fontWeight: 'bold',
+  },
+  loginButtonContainer: {
+    marginVertical: 20,
+    width: '80%',
+    alignSelf: 'center',
   },
   divider: {
-    height: 20,
+    height: 30,
   },
 });
 
