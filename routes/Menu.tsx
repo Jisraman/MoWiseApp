@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHome, faWallet, faUser, faGlobe, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
+import Home from '../screens/Home/Index'
+import About from '../screens/About/Index'
+import Profile from '../screens/Profile/Index'
+import Services from '../screens/Services/Index'
+import Wallet from '../screens/Wallet/Index'
 
 import { 
   Text,Tab, TabView
@@ -8,55 +14,75 @@ import {
 import {
     
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
   } from 'react-native';
 
   
 
 function Menu() {
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(2);
+  
   return (
-    <View style={{height:'100%', marginTop:'auto'}}>
-        <Text>Hola Menu</Text>
-        
+    <View style={{height:'100%', margin:"0%", padding:"0%"}}>
+      <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
+          <About/>
+        </TabView.Item>
+        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
+          <Services/>
+        </TabView.Item>
+        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
+          <Home/>
+        </TabView.Item>
+        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
+          <Wallet/>
+        </TabView.Item>
+        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
+          <Profile/>
+        </TabView.Item>
+      </TabView>
 
-        <TabView value={index} onChange={setIndex} animationType="spring">
-          <TabView.Item style={{ backgroundColor: 'red', width: '100%' }}>
-            <Text h1>Recent</Text>
-          </TabView.Item>
-          <TabView.Item style={{ backgroundColor: 'blue', width: '100%' }}>
-            <Text h1>Favorite</Text>
-          </TabView.Item>
-          <TabView.Item style={{ backgroundColor: 'green', width: '100%' }}>
-            <Text h1>Cart</Text>
-          </TabView.Item>
-        </TabView>
-        <Tab
-          value={index}
-          onChange={(e) => setIndex(e)}
-          indicatorStyle={{
-            backgroundColor: 'white',
-            height: 3,
-          }}
-          variant="primary"
-        >
-          <Tab.Item
-            title="Recent"
-            titleStyle={{ fontSize: 12 }}
-            icon={{ name: 'timer', type: 'ionicon', color: 'white' }}
-          />
-          <Tab.Item
-            title="favorite"
-            titleStyle={{ fontSize: 12 }}
-            icon={{ name: 'heart', type: 'ionicon', color: 'white' }}
-          />
-          <Tab.Item
-            title="cart"
-            titleStyle={{ fontSize: 12 }}
-            icon={{ name: 'cart', type: 'ionicon', color: 'white' }}
-          />
-        </Tab>
-        <Text>Hola Menu</Text>
+      <Tab
+        value={index}
+        onChange={(e) => setIndex(e)}
+        indicatorStyle={{
+          backgroundColor: 'white',
+          height: 3,
+        }}
+        variant="primary"
+      >
+        <Tab.Item
+          containerStyle={() => ({
+            backgroundColor: "#026197"
+          })}
+          icon={<FontAwesomeIcon icon={faGlobe} size={40}/>}
+        />
+        <Tab.Item
+          containerStyle={() => ({
+            backgroundColor: "#026197"
+          })}
+          icon={<FontAwesomeIcon icon={faHandshakeAngle} size={40}/>}
+        />
+        <Tab.Item
+          containerStyle={() => ({
+            backgroundColor: "#026197"
+          })}
+          icon={<FontAwesomeIcon icon={faHome} size={40}/>}
+        />
+        <Tab.Item
+          containerStyle={() => ({
+            backgroundColor: "#026197"
+          })}
+          icon={<FontAwesomeIcon icon={faWallet} size={40}/>}
+        />
+        <Tab.Item
+          containerStyle={() => ({
+            backgroundColor: "#026197"
+          })}
+          icon={<FontAwesomeIcon icon={faUser} size={40}/>}
+        />
+      </Tab>
 
     </View>
   );
