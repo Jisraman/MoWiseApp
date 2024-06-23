@@ -46,13 +46,14 @@ function Inversion() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 0,
+    justifyContent: 'center',
+    padding: 20
   },
   imageContainer: {
     width: '100%',
-    height: '30%',
+    height: '40%',
     marginBottom: 20,
     resizeMode: 'cover',
 

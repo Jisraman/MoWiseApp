@@ -191,8 +191,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   backButton: {
+    width: 'auto',
+    marginRight: 'auto',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     padding: 10,
     margin: 10,
   },
