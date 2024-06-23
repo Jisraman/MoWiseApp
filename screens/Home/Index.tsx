@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ImageBackground, Dimensions, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Card, Button, Divider, Image } from 'react-native-elements';
 
@@ -20,16 +20,28 @@ const testimonies = [
   {
     id: 3,
     name: 'María González',
-    text: 'Gracias a esta app, he podido ahorrar y planificar mejor mis inversiones.',
+    text: 'La facilidad de uso de esta aplicación me ha permitido controlar mis gastos de forma efectiva.',
     avatar: require('../../assets/images/content/t3.png'),
   },
-  // Añadir más testimonios según sea necesario
+  {
+    id: 4,
+    name: 'Carla Pérez',
+    text: 'Nunca había sido tan sencillo organizar mis presupuestos. ¡Recomendado!',
+    avatar: require('../../assets/images/content/t4.png'),
+  },
 ];
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const imageHeight = windowHeight * 0.5;
 
 function Home({ navigation }) {
+  const handleReadNews = () => {
+    // Abre el enlace externo en el navegador por defecto del dispositivo
+    Linking.openURL('https://www.elfinanciero.com.mx/')
+      .catch((err) => console.error('Error al abrir el enlace:', err));
+  };
+
   const renderTestimonies = () => (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       {testimonies.map((testimony) => (
@@ -71,10 +83,7 @@ function Home({ navigation }) {
           </Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {
-              // Lógica para navegar a la sección de noticias
-              // navigation.navigate('Noticias')
-            }}
+            onPress={handleReadNews} // Aquí llamamos a la función handleReadNews al presionar el botón
           >
             <Text style={styles.buttonText}>Leer noticias</Text>
           </TouchableOpacity>

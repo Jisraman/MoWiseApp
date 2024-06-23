@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome, faWallet, faUser, faGlobe, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
 import Home from '../screens/Home/Index';
 import About from '../screens/About/Index';
-import Profile from '../screens/Profile/Index';
 import Services from '../screens/Services/Index';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
