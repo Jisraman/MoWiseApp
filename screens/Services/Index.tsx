@@ -89,7 +89,7 @@ function Services() {
                 'El crédito te permite acceder a fondos adicionales que puedes usar para compras o necesidades personales, con la obligación de devolverlos en el futuro.'
               )}
               {renderServicePreview(
-                'Préstamos',
+                'Prestamos',
                 require('../../assets/images/content/services/prestamos.jpg'),
                 'Los préstamos te proporcionan una suma de dinero que debes devolver en cuotas a lo largo del tiempo, generalmente con intereses.'
               )}
