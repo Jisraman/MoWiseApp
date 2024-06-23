@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ImageBackground, Dimensions, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ImageBackground, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Card, Button, Divider, Image } from 'react-native-elements';
 
@@ -36,12 +36,6 @@ const windowHeight = Dimensions.get('window').height;
 const imageHeight = windowHeight * 0.5;
 
 function Home({ navigation }) {
-  const handleReadNews = () => {
-    // Abre el enlace externo en el navegador por defecto del dispositivo
-    Linking.openURL('https://www.elfinanciero.com.mx/')
-      .catch((err) => console.error('Error al abrir el enlace:', err));
-  };
-
   const renderTestimonies = () => (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       {testimonies.map((testimony) => (
@@ -83,7 +77,10 @@ function Home({ navigation }) {
           </Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={handleReadNews} // Aquí llamamos a la función handleReadNews al presionar el botón
+            onPress={() => {
+              // Lógica para navegar a la sección de noticias
+              // navigation.navigate('Noticias')
+            }}
           >
             <Text style={styles.buttonText}>Leer noticias</Text>
           </TouchableOpacity>
@@ -96,21 +93,18 @@ function Home({ navigation }) {
 
         <Divider style={styles.divider} />
 
-          <Text style={styles.sectionTitle}>Únete</Text>
+          <Text style={styles.sectionTitle}>¡Empieza ya! Inicia sesión</Text>
           <Text style={styles.description}>
-            Crea una cuenta ya y forma parte de las miles de personas que administran y aprovechan mejor sus recursos.
+            Crea una cuenta ya y forma parte de las miles de personas que administran y aprovechan mejor sus recursos. Solo tienes que presionar el boton de menú de la esquina superior derecha.
           </Text>
+          <View style={styles.imageContainer}>
+          <ImageBackground
+            source={require('../../assets/images/content/empieza.jpg')}
+            style={styles.image}
+          >
+          </ImageBackground>
         </View>
-        {/* Botón de inicio de sesión */}
-        <TouchableOpacity
-          style={styles.loginButtonContainer}
-          onPress={() => {
-            // Lógica para navegar a la pantalla de inicio de sesión
-            // navigation.navigate('Login')
-          }}
-        >
-          <Text style={styles.loginButtonText}>¡Empieza ya! Inicia sesión</Text>
-        </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -144,6 +138,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  imageContainer: {
+    width: '100%',
+    height: '40%',
+    marginBottom: 20,
+    resizeMode: 'cover',
+
   },
   headerText: {
     fontSize: 24,
