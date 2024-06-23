@@ -9,13 +9,13 @@ import {
   StyleSheet,
   Alert,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Picker } from '@react-native-picker/picker';
 
-// Imagen de fondo
 const backgroundImg = require('../../assets/images/background.png');
 
 function Profile() {
@@ -26,6 +26,7 @@ function Profile() {
   const [birthMonth, setBirthMonth] = useState('');
   const [birthYear, setBirthYear] = useState('');
   const [photo, setPhoto] = useState(null);
+  const [gender, setGender] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -39,6 +40,7 @@ function Profile() {
         const storedBirthMonth = await AsyncStorage.getItem('birthMonth');
         const storedBirthYear = await AsyncStorage.getItem('birthYear');
         const storedPhoto = await AsyncStorage.getItem('photo');
+        const storedGender = await AsyncStorage.getItem('gender');
 
         if (
           storedName &&
@@ -47,7 +49,8 @@ function Profile() {
           storedBirthDay &&
           storedBirthMonth &&
           storedBirthYear &&
-          storedPhoto
+          storedPhoto &&
+          storedGender
         ) {
           setName(storedName);
           setEmail(storedEmail);
@@ -56,6 +59,7 @@ function Profile() {
           setBirthMonth(storedBirthMonth);
           setBirthYear(storedBirthYear);
           setPhoto(storedPhoto);
+          setGender(storedGender);
           setIsRegistered(true);
         }
       } catch (e) {
@@ -67,7 +71,7 @@ function Profile() {
   }, []);
 
   const handleSave = async () => {
-    if (name && email && phone && birthDay && birthMonth && birthYear && photo) {
+    if (name && email && phone && birthDay && birthMonth && birthYear && photo && gender) {
       try {
         await AsyncStorage.setItem('name', name);
         await AsyncStorage.setItem('email', email);
@@ -76,6 +80,7 @@ function Profile() {
         await AsyncStorage.setItem('birthMonth', birthMonth);
         await AsyncStorage.setItem('birthYear', birthYear);
         await AsyncStorage.setItem('photo', photo);
+        await AsyncStorage.setItem('gender', gender);
         setIsRegistered(true);
         setIsEditing(false);
         Alert.alert(
@@ -107,12 +112,10 @@ function Profile() {
     });
   };
 
-  // Función para determinar los días válidos según el mes y año seleccionados
   const getDaysInMonth = (month, year) => {
     return new Date(year, month, 0).getDate();
   };
 
-  // Generar listas de días, meses y años para los pickers
   const daysInMonth = Array.from(
     { length: getDaysInMonth(parseInt(birthMonth), parseInt(birthYear)) },
     (_, i) => (i + 1).toString()
@@ -124,7 +127,7 @@ function Profile() {
   );
 
   const renderForm = () => (
-    <>
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <TouchableOpacity style={styles.photoButton} onPress={selectPhoto}>
         <View style={styles.photoContainer}>
           <Image
@@ -203,8 +206,23 @@ function Profile() {
           </Picker>
         </View>
       </View>
-      <Button title={isEditing ? 'Guardar' : 'Registrar'} onPress={handleSave} />
-    </>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Género</Text>
+        <Picker
+          style={styles.picker}
+          selectedValue={gender}
+          onValueChange={value => setGender(value)}
+        >
+          <Picker.Item label="Hombre" value="Hombre" />
+          <Picker.Item label="Mujer" value="Mujer" />
+          <Picker.Item label="Otro" value="Otro" />
+        </Picker>
+      </View>
+      <TouchableOpacity style={styles.button} onPress={handleSave}>
+        <Text style={styles.buttonText}>{isEditing ? 'Guardar' : 'Registrar'}</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 
   const renderProfile = () => (
@@ -213,26 +231,14 @@ function Profile() {
         <Image source={{ uri: photo }} style={styles.profilePhoto} />
       </TouchableOpacity>
       <View style={styles.profileInfo}>
-        <Text style={styles.profileText}>{name}</Text>
-        <Text style={styles.profileText}>{email}</Text>
-        <Text style={styles.profileText}>{phone}</Text>
-        <Text style={styles.profileText}>
-          {birthDay}/{birthMonth}/{birthYear}
-        </Text>
+        <Text style={styles.profileText}>Hola, {name}.</Text>
+        <Text style={styles.profileText}>Tu cuenta aún está en validación. Se paciente..</Text>
       </View>
-      <View style={styles.profileOptions}>
-        <Button title="Opción 1" onPress={() => handleOptionPress('Opción 1')} />
-        <Button title="Opción 2" onPress={() => handleOptionPress('Opción 2')} />
-        <Button title="Opción 3" onPress={() => handleOptionPress('Opción 3')} />
-      </View>
-      <Button title="Editar" onPress={handleEdit} />
+      <TouchableOpacity style={styles.button} onPress={handleEdit}>
+        <Text style={styles.buttonText}>Editar</Text>
+      </TouchableOpacity>
     </View>
   );
-
-  const handleOptionPress = option => {
-    // Implementa aquí la lógica para manejar las opciones adicionales
-    Alert.alert('Opción Seleccionada', `Seleccionaste: ${option}`);
-  };
 
   return (
     <ImageBackground source={backgroundImg} style={styles.background}>
@@ -256,7 +262,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(0, 0, 255, 0.5)', // Fondo azul con transparencia para permitir que se vea la imagen de fondo
+    backgroundColor: 'rgba(0, 0, 255, 0)', // Fondo azul con transparencia para permitir que se vea la imagen de fondo
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
   },
   inputContainer: {
     width: '100%',
@@ -280,7 +292,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
-    width: '80%',
+    width: '100%',
   },
   pickerLabel: {
     fontSize: 16,
@@ -335,16 +347,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     marginVertical: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo blanco con transparencia
+    backgroundColor: 'rgba(0, 0, 0, 0)', // Fondo blanco con transparencia
     borderRadius: 10,
-    width: '90%',
-    maxWidth: 400,
+    width: '100%',
   },
   profilePhoto: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: 20,
+    marginBottom: 0,
   },
   profileInfo: {
     alignItems: 'center',
@@ -353,14 +364,24 @@ const styles = StyleSheet.create({
   profileText: {
     fontSize: 18,
     marginBottom: 10,
-    color: '#333', // Color de texto oscuro para la información del perfil
+    color: 'white', // Color de texto oscuro para la información del perfil
   },
-  profileOptions: {
+  button: {
+    width: 'auto',
+    marginHorizontal: 'auto',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-    width: '100%',
+    alignItems: 'flex-start',
+    padding: 10,
+    margin: 10,
+    marginTop: 40,
+    backgroundColor: '#3B58B8',
+    borderRadius: 5,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#fff',
   },
 });
 
 export default Profile;
+   
