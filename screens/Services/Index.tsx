@@ -66,10 +66,10 @@ function Services() {
               source={require('../../assets/images/content/wallet/wallet-top.jpeg')}
               style={styles.image}
             >
-              <Text style={styles.headerText}>Nuestros <Text style={styles.highlightedText}> Servicios Financieros</Text></Text>
+              <Text style={styles.headerText}>Nuestros <Text style={styles.highlightedText}>Servicios Financieros</Text></Text>
             </ImageBackground>
             <Text style={styles.descriptionText}>
-              Prueba nuestros simuladores financieros para obtener una vista detallada de sus opciones.
+              Infórmate de nuestros servicios financieros para obtener una vista detallada de sus opciones.
             </Text>
 
             <View style={styles.servicesContainer}>
@@ -84,7 +84,7 @@ function Services() {
                 'La inversión te brinda la oportunidad de hacer crecer tu capital a través de diversos instrumentos financieros.'
               )}
               {renderServicePreview(
-                'Crédito',
+                'Credito',
                 require('../../assets/images/content/services/credito.jpg'),
                 'El crédito te permite acceder a fondos adicionales que puedes usar para compras o necesidades personales, con la obligación de devolverlos en el futuro.'
               )}
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
+    alignItems: 'center', // Centra el contenido verticalmente
   },
   image: {
     width: '100%',
@@ -142,11 +143,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '100%',
-    alignItems: 'flex-start',
+    justifyContent: 'center', // Centra horizontalmente los elementos
     paddingHorizontal: 10,
   },
   service: {
-    width: '100%',
+    width: '90%', // Ajusta el ancho para que no ocupe todo el espacio disponible y se vea centrado
     margin: 10,
     backgroundColor: '#fff',
     padding: 10,
