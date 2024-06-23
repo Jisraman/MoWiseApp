@@ -1,13 +1,26 @@
 import * as React from 'react';
-import { View, ScrollView, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, ScrollView, StyleSheet, ImageBackground, Dimensions, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, Button, Divider } from 'react-native-elements';
+import { Linking } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const imageHeight = windowHeight * 0.5;
 
+// Importa las imágenes de cada integrante del equipo
+const alejandraImage = require('../../assets/images/content/about/alejandra.png');
+const mariaImage = require('../../assets/images/content/about/maria.png');
+const luisaImage = require('../../assets/images/content/about/luisa.png');
+const carlosImage = require('../../assets/images/content/about/carlos.png');
+
 function About({ navigation }) {
+  
+  const handleVisitWebsite = () => {
+    // Abre el enlace en el navegador externo
+    Linking.openURL('https://alexcarranco23.wixsite.com/mowise');
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scrollViewContent}>
@@ -21,36 +34,50 @@ function About({ navigation }) {
         {/* Contenido principal */}
         <View style={styles.contentContainer}>
 
-          <Text style={styles.sectionTitle}>Nuestra Misión</Text>
+          {/* Información sobre la empresa */}
+          <Text style={styles.sectionTitle}>Sobre Nosotros</Text>
           <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pretium pretium tempor.
-            Ut eget imperdiet neque. In volutpat ante semper diam molestie, et aliquam erat laoreet.
+            Somos una empresa emergente dedicada a proporcionar soluciones financieras, tales como préstamos, créditos, inversiones y opciones de ahorro. En este espacio, te invitamos a conocer más sobre nuestra trayectoria, filosofía y compromiso con nuestros clientes. Descubre cómo podemos ayudarte a alcanzar tus metas financieras.
           </Text>
 
-          <Text style={styles.sectionTitle}>Nuestra Visión</Text>
+          {/* Información sobre el equipo */}
+          <Text style={styles.sectionTitle}>Nuestro Equipo</Text>
           <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pretium pretium tempor.
-            Ut eget imperdiet neque. In volutpat ante semper diam molestie, et aliquam erat laoreet.
+            Como parte de nuestro compromiso, contamos con un equipo altamente calificado y dedicado a brindarte el mejor servicio. Conoce a las personas que hacen posible nuestro enfoque en la excelencia y la satisfacción del cliente:
           </Text>
 
-          <Text style={styles.sectionTitle}>Nuestros Objetivos</Text>
-          <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pretium pretium tempor.
-            Ut eget imperdiet neque. In volutpat ante semper diam molestie, et aliquam erat laoreet.
-          </Text>
+          {/* Lista de integrantes del equipo con imágenes */}
+          <View style={styles.teamMemberContainer}>
+            <View style={styles.teamMember}>
+              <Image source={alejandraImage} style={styles.teamMemberImage} />
+              <Text style={styles.teamMemberTitle}>Alejandra Noemí Carranco Estrada</Text>
+              <Text style={styles.teamMemberContact}>Email: juan@mowise.com | Teléfono: 123-456-7890</Text>
+            </View>
 
-          <Text style={styles.sectionTitle}>Nuestros Valores</Text>
-          <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pretium pretium tempor.
-            Ut eget imperdiet neque. In volutpat ante semper diam molestie, et aliquam erat laoreet.
-          </Text>
-          
+            <View style={styles.teamMember}>
+              <Image source={mariaImage} style={styles.teamMemberImage} />
+              <Text style={styles.teamMemberTitle}>María Rodríguez, CFO</Text>
+              <Text style={styles.teamMemberContact}>Email: maria@mowise.com | Teléfono: 123-456-7890</Text>
+            </View>
+
+            <View style={styles.teamMember}>
+              <Image source={luisaImage} style={styles.teamMemberImage} />
+              <Text style={styles.teamMemberTitle}>Luisa Gómez, Asesor Financiero</Text>
+              <Text style={styles.teamMemberContact}>Email: luisa@mowise.com | Teléfono: 123-456-7890</Text>
+            </View>
+
+            <View style={styles.teamMember}>
+              <Image source={carlosImage} style={styles.teamMemberImage} />
+              <Text style={styles.teamMemberTitle}>Carlos Sánchez, Gerente de Inversiones</Text>
+              <Text style={styles.teamMemberContact}>Email: carlos@mowise.com | Teléfono: 123-456-7890</Text>
+            </View>
+          </View>
+
+          {/* Botón para visitar la página web */}
           <Divider style={styles.divider} />
-
-          {/* Botón para regresar a la pantalla anterior */}
           <Button
-            title="Regresar"
-            onPress={() => navigation.goBack()}
+            title="¡Visita nuestra web!"
+            onPress={handleVisitWebsite}
             containerStyle={styles.loginButtonContainer}
           />
         </View>
@@ -79,10 +106,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
-  highlightedText: {
-    fontWeight: 'bold',
-    color: '#ff7f50', // Puedes ajustar el color aquí según tus preferencias
-  },
   contentContainer: {
     padding: 20,
   },
@@ -95,6 +118,29 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     marginBottom: 20,
+  },
+  teamMemberContainer: {
+    marginTop: 10,
+  },
+  teamMember: {
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  teamMemberImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 10,
+  },
+  teamMemberTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 5,
+    textAlign: 'center',
+  },
+  teamMemberContact: {
+    fontSize: 16,
+    textAlign: 'center',
   },
   loginButtonContainer: {
     marginVertical: 20,

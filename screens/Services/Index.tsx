@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   goButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#3B58B8',
     paddingVertical: 8,
     borderRadius: 10,
     alignItems: 'center',

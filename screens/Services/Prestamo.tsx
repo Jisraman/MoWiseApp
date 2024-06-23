@@ -131,6 +131,15 @@ const Prestamo = () => {
           </Text>
         </View>
       )}
+      {/* Requisitos */}
+      <View style={styles.requirementsContainer}>
+        <Text style={styles.requirementsTitle}>Requisitos para el préstamo</Text>
+        <Text>- Tener buen historial crediticio</Text>
+        <Text>- Credencial para votar INE / IFE</Text>
+        <Text>- Comprobante de domicilio</Text>
+        <Text>- Comprobar ingresos de al menos $6,000 MXN al mes</Text>
+        <Text>- Comprobar al menos 6 meses en tu empleo</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -233,6 +242,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 10,
+  },
+  requirementsContainer: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  requirementsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 

@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { View, ScrollView, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ImageBackground, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Card, Text, Button, Image, Divider } from 'react-native-elements';
+import { Card, Button, Divider, Image } from 'react-native-elements';
 
 // Mock de datos de testimonios
 const testimonies = [
@@ -58,38 +58,31 @@ function Home({ navigation }) {
 
           <Text style={styles.sectionTitle}>MoWi$e</Text>
           <Text style={styles.description}>
-            Aquí podrás encontrar información sobre cómo manejar tus finanzas de manera eficiente,
+            En esta App podrás encontrar información sobre cómo manejar tus finanzas de manera eficiente,
             consejos de ahorro, inversión y mucho más. Explora nuestras secciones para obtener
             el máximo beneficio de nuestros servicios.
           </Text>
-          <Button title="Conoce más" onPress={() => navigation.navigate('WebOficial')} />
-
+ 
           <Divider style={styles.divider} />
 
           <Text style={styles.sectionTitle}>Últimas Noticias</Text>
           <Text style={styles.description}>
             Mantente al día con las últimas noticias del mundo financiero y económico.
           </Text>
-          <Button
-            title="Leer noticias"
+          <TouchableOpacity
+            style={styles.button}
             onPress={() => {
               // Lógica para navegar a la sección de noticias
               // navigation.navigate('Noticias')
             }}
-          />
+          >
+            <Text style={styles.buttonText}>Leer noticias</Text>
+          </TouchableOpacity>
 
           <Divider style={styles.divider} />
 
           <Text style={styles.sectionTitle}>Testimonios</Text>
           {renderTestimonies()}
-
-          <Button
-            title="Ver todos los testimonios"
-            onPress={() => {
-              // Lógica para navegar a la sección de testimonios
-              // navigation.navigate('Testimonios')
-            }}
-          />
         
 
         <Divider style={styles.divider} />
@@ -100,14 +93,15 @@ function Home({ navigation }) {
           </Text>
         </View>
         {/* Botón de inicio de sesión */}
-        <Button
-          title="¡Empieza ya! Inicia sesión"
+        <TouchableOpacity
+          style={styles.loginButtonContainer}
           onPress={() => {
             // Lógica para navegar a la pantalla de inicio de sesión
             // navigation.navigate('Login')
           }}
-          containerStyle={styles.loginButtonContainer}
-        />
+        >
+          <Text style={styles.loginButtonText}>¡Empieza ya! Inicia sesión</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -128,6 +122,19 @@ const styles = StyleSheet.create({
   highlightedText: {
     fontWeight: 'bold',
     color: '#ff7f50', // Puedes ajustar el color aquí según tus preferencias
+  },
+  button: {
+    paddingHorizontal: 20,
+    backgroundColor: '#3B58B8',
+    paddingVertical: 8,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   headerText: {
     fontSize: 24,
@@ -173,9 +180,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   loginButtonContainer: {
+    
     marginVertical: 20,
     width: '80%',
     alignSelf: 'center',
+    backgroundColor: '#3B58B8',
+    paddingVertical: 8,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loginButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    
   },
   divider: {
     height: 30,

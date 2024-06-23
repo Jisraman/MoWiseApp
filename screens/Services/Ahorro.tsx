@@ -1,44 +1,51 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView } from 'react-native';
 
-// Función para calcular el rendimiento de la inversión
-const calcularRendimientoInversion = (monto, tasa, tiempo) => {
-  return monto * (1 + tasa * tiempo);
+// Función para calcular el crecimiento del ahorro
+const calcularCrecimientoAhorro = (montoInicial, tasa, tiempo) => {
+  return montoInicial * (1 + tasa * tiempo);
 };
 
 const Ahorro = () => {
   const [monto, setMonto] = useState('');
   const [resultados, setResultados] = useState([0, 0, 0, 0]);
-  const tasaInversion = 0.146; // Tasa de interés ajustada para un 14.6% de rendimiento
+  const tasaAhorro = 0.146; // Tasa de interés ajustada para un 14.6% de crecimiento
 
-  const calcularInversion = () => {
+  const calcularAhorro = () => {
     const montoNumerico = parseFloat(monto);
     if (!isNaN(montoNumerico)) {
       const nuevosResultados = [
-        calcularRendimientoInversion(montoNumerico, tasaInversion, 3).toFixed(2), // 3 meses
-        calcularRendimientoInversion(montoNumerico, tasaInversion, 6).toFixed(2), // 6 meses
-        calcularRendimientoInversion(montoNumerico, tasaInversion, 12).toFixed(2), // 12 meses
-        calcularRendimientoInversion(montoNumerico, tasaInversion, 18).toFixed(2), // 18 meses
+        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 3).toFixed(2), // 3 meses
+        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 6).toFixed(2), // 6 meses
+        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 12).toFixed(2), // 12 meses
+        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 18).toFixed(2), // 18 meses
       ];
       setResultados(nuevosResultados);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Simulador de Inversiones</Text>
-      <TextInput
-      style={styles.input}
-      keyboardType="numeric"
-      value={monto}
-      onChangeText={(text) => setMonto(text)}
-      />
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Simulador de Ahorro</Text>
 
-      <TouchableOpacity style={styles.button} onPress={calcularInversion}>
-        <Text>Calcular</Text>
-      </TouchableOpacity>
-      {/* Gráficos de tiempo predefinidos */}
-      <View>
+        <Text style={styles.fillerText}>
+          ¿Alguna vez has imaginado alcanzar tus metas financieras con facilidad? Nuestro simulador de ahorro te ayuda a visualizar cómo tus decisiones de hoy pueden impactar tus ahorros futuros. Desde planificar unas vacaciones soñadas hasta asegurar tu jubilación, este simulador te ofrece una herramienta poderosa para tomar decisiones informadas.
+        </Text>
+
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={monto}
+          onChangeText={(text) => setMonto(text)}
+          placeholder="Ingrese el monto a ahorrar"
+        />
+
+        <TouchableOpacity style={styles.button} onPress={calcularAhorro}>
+          <Text style={styles.buttonText}>Calcular</Text>
+        </TouchableOpacity>
+
+        {/* Gráficos de tiempo predefinidos */}
         <View style={styles.graphContainer}>
           <View style={styles.graphRow}>
             <View style={[styles.graphBar, { width: 80 }]}>
@@ -65,12 +72,25 @@ const Ahorro = () => {
             <Text style={styles.label}>${resultados[3]}</Text>
           </View>
         </View>
+
+        {/* Texto sobre el ahorro a corto plazo */}
+        <Text style={styles.sectionTitle}>¿Qué te ofrece el ahorro a corto plazo?</Text>
+        <Text style={styles.description}>
+          Un producto de ahorro a corto plazo es ideal para aquellas personas que quieran maximizar la rentabilidad de sus ahorros con acceso rápido a su dinero. Tu capital está seguro y nuestro equipo te ayuda a obtener los mejores beneficios posibles.
+        </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollViewContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 30,
+    width: '100%',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -78,13 +98,21 @@ const styles = StyleSheet.create({
     padding: 30,
     width: '100%',
   },
+  fillerText: {
+    marginBottom: 20,
+    textAlign: 'justify',
+  },
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    backgroundColor: '#DDDDDD',
-    borderRadius: 5,
+    backgroundColor: '#3B58B8',
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+  },
+  buttonText: {
+    color: 'white'
   },
   title: {
     fontSize: 24,
@@ -109,23 +137,35 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   graphBar: {
-    height: 40, // Ajusta la altura de la barra según tus necesidades
-    backgroundColor: 'green', // Color de ejemplo, puedes cambiarlo
+    height: 50,
+    backgroundColor: '#2B2A2A',
     marginVertical: 5,
     borderRadius: 10,
     justifyContent: 'center',
-    paddingHorizontal: 5, // Ajusta el padding horizontal para centrar el mes
+    paddingHorizontal: 5,
   },
   label: {
-    color: 'black', // Cambia el color del resultado según tu diseño
+    color: 'black',
     fontWeight: 'bold',
-    textAlign: 'right', // Alinea el texto del resultado a la derecha
-    marginLeft: 10, // Añade un margen izquierdo para separar el resultado de la barra
+    textAlign: 'right',
+    marginLeft: 10,
   },
   monthLabel: {
     color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center', // Alinea el texto del mes al centro
+    textAlign: 'center',
+    fontSize: 16
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
   },
 });
 
