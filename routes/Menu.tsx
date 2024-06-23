@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome, faWallet, faUser, faGlobe, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
-import Home from '../screens/Home/Index'
-import About from '../screens/About/Index'
-import Profile from '../screens/Profile/Index'
-import Services from '../screens/Services/Index'
-import Wallet from '../screens/Wallet/Index'
+import Home from '../screens/Home/Index';
+import About from '../screens/About/Index';
+import Profile from '../screens/Profile/Index';
+import Services from '../screens/Services/Index';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { 
@@ -22,7 +21,7 @@ import {
   
 
 function Menu() {
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(1);
   
   return (
     <SafeAreaProvider>
@@ -32,16 +31,10 @@ function Menu() {
           <About/>
         </TabView.Item>
         <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-          <Services/>
-        </TabView.Item>
-        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
           <Home/>
         </TabView.Item>
         <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-          <Wallet/>
-        </TabView.Item>
-        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-          <Profile/>
+          <Services/>
         </TabView.Item>
       </TabView>
 
@@ -64,26 +57,15 @@ function Menu() {
           containerStyle={() => ({
             backgroundColor: "white"
           })}
-          icon={<FontAwesomeIcon icon={faHandshakeAngle} size={20}/>}
-        />
-        <Tab.Item
-          containerStyle={() => ({
-            backgroundColor: "white"
-          })}
           icon={<FontAwesomeIcon icon={faHome} size={20}/>}
         />
         <Tab.Item
           containerStyle={() => ({
             backgroundColor: "white"
           })}
-          icon={<FontAwesomeIcon icon={faWallet} size={20}/>}
+          icon={<FontAwesomeIcon icon={faHandshakeAngle} size={20}/>}
         />
-        <Tab.Item
-          containerStyle={() => ({
-            backgroundColor: "white"
-          })}
-          icon={<FontAwesomeIcon icon={faUser} size={20}/>}
-        />
+        
       </Tab>
 
     </View>
