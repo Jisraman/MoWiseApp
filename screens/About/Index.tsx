@@ -8,9 +8,9 @@ const windowHeight = Dimensions.get('window').height;
 const imageHeight = windowHeight * 0.5;
 
 const alejandraImage = require('../../assets/images/content/about/alejandra.png');
-const mariaImage = require('../../assets/images/content/about/maria.png');
-const luisaImage = require('../../assets/images/content/about/luisa.png');
-const carlosImage = require('../../assets/images/content/about/carlos.png');
+const tanyImage = require('../../assets/images/content/about/tani.png');
+const fabianImage = require('../../assets/images/content/about/fabian.png');
+const edgarImage = require('../../assets/images/content/about/edgar.png');
 
 function About({ navigation }) {
   
@@ -42,27 +42,28 @@ function About({ navigation }) {
           <View style={styles.teamMemberContainer}>
             <View style={styles.teamMember}>
               <Image source={alejandraImage} style={styles.teamMemberImage} />
-              <Text style={styles.teamMemberTitle}>Alejandra Noemí Carranco Estrada</Text>
-              <Text style={styles.teamMemberContact}>Email: juan@mowise.com | Teléfono: 123-456-7890</Text>
+              <Text style={styles.teamMemberTitle}>Alejandra Noemí Carranco Estrada, Directora General</Text>
+              <Text style={styles.teamMemberContact}>Email: alejandrance@mowise.com | Teléfono: 123-456-7890</Text>
             </View>
 
             <View style={styles.teamMember}>
-              <Image source={mariaImage} style={styles.teamMemberImage} />
-              <Text style={styles.teamMemberTitle}>María Rodríguez, CFO</Text>
-              <Text style={styles.teamMemberContact}>Email: maria@mowise.com | Teléfono: 123-456-7890</Text>
+              <Image source={tanyImage} style={styles.teamMemberImage} />
+              <Text style={styles.teamMemberTitle}>Diana Tanybeth Zamora Pérez, Gerente de Inversiones</Text>
+              <Text style={styles.teamMemberContact}>Email: dianatzp@mowise.com | Teléfono: 123-456-7891</Text>
             </View>
 
             <View style={styles.teamMember}>
-              <Image source={luisaImage} style={styles.teamMemberImage} />
-              <Text style={styles.teamMemberTitle}>Luisa Gómez, Asesor Financiero</Text>
-              <Text style={styles.teamMemberContact}>Email: luisa@mowise.com | Teléfono: 123-456-7890</Text>
+              <Image source={fabianImage} style={styles.teamMemberImage} />
+              <Text style={styles.teamMemberTitle}>Fabian Sánchez Torres Gómez, Asesor Financiero</Text>
+              <Text style={styles.teamMemberContact}>Email: fabianst@mowise.com | Teléfono: 123-456-7892</Text>
             </View>
 
             <View style={styles.teamMember}>
-              <Image source={carlosImage} style={styles.teamMemberImage} />
-              <Text style={styles.teamMemberTitle}>Carlos Sánchez, Gerente de Inversiones</Text>
-              <Text style={styles.teamMemberContact}>Email: carlos@mowise.com | Teléfono: 123-456-7890</Text>
+              <Image source={edgarImage} style={styles.teamMemberImage} />
+              <Text style={styles.teamMemberTitle}>Edgar Andrés Trejo Jiménez, Gerente Financiero</Text>
+              <Text style={styles.teamMemberContact}>Email: edgartj@mowise.com | Teléfono: 123-456-7893</Text>
             </View>
+            
           </View>
 
           <Divider style={styles.divider} />
