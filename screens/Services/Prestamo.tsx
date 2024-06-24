@@ -193,16 +193,19 @@ padding: 30
 title: {
 fontSize: 24,
 fontWeight: 'bold',
+color: 'black',
 marginBottom: 20,
 textAlign: 'center',
 },
 inputContainer: {
 width: '100%',
-marginBottom: 20,
+marginBottom: 40,
 },
 input: {
-height: 40,
+height: 60,
 borderColor: '#ccc',
+color: 'black',
+fontSize: 24,
 borderWidth: 1,
 marginBottom: 10,
 paddingHorizontal: 10,
