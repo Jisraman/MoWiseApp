@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -6,9 +6,8 @@ const Prestamo = () => {
   const [montoSolicitado, setMontoSolicitado] = useState('');
   const [cuota, setCuota] = useState('');
   const [plazo, setPlazo] = useState('mensual');
-  const [tiempoPago, setTiempoPago] = useState(null); // Para mostrar el tiempo de pago
   const [tasaPromedio, setTasaPromedio] = useState(12); // Tasa de interés anual del 12%
-  const [totalPago, setTotalPago] = useState(null); // Para mostrar el total a pagar
+  const [detallesCalculo, setDetallesCalculo] = useState(null); // Para almacenar los resultados intermedios
 
   const plazos = {
     mensual: 12,
@@ -21,26 +20,43 @@ const Prestamo = () => {
     const monto = parseFloat(montoSolicitado);
     const cuotaInput = parseFloat(cuota);
 
-    // Validate input and return early if invalid
+    // Validar entrada
     if (isNaN(monto) || isNaN(cuotaInput) || monto <= 0 || cuotaInput <= 0) {
       Alert.alert('Error', 'Por favor, ingresa valores válidos para Monto solicitado y Cuota.');
       return;
     }
 
+    // Validar que la cuota no sea mayor que el monto solicitado
+    if (cuotaInput > monto) {
+      Alert.alert('Error', 'La cuota no puede ser mayor que el monto solicitado.');
+      return;
+    }
+
     // Calcular el número de períodos necesarios para pagar el préstamo
     const interesPeriodico = tasaPromedio / 100 / plazos[plazo]; // Tasa de interés periódica ajustada según el período de pago
-    const tiempoPagoUnidades = Math.log(cuotaInput / (cuotaInput - monto * interesPeriodico)) / Math.log(1 + interesPeriodico);
+    const numerador = Math.log(cuotaInput / (cuotaInput - monto * interesPeriodico));
+    const denominador = Math.log(1 + interesPeriodico);
+
+    // Validar que el denominador no sea cero para evitar divisiones por cero
+    if (denominador === 0 || numerador <= 0) {
+      Alert.alert('Error', 'La cuota debe ser suficiente para cubrir los intereses. Por favor, ingresa una cuota mayor.');
+      return;
+    }
+
+    const tiempoPagoUnidades = numerador / denominador;
     const tiempoPagoTotal = Math.ceil(tiempoPagoUnidades); // Redondeamos hacia arriba para obtener el número total de unidades de tiempo
 
-    setTiempoPago(tiempoPagoTotal);
-    setTotalPago((cuotaInput * tiempoPagoTotal).toFixed(2));
-  };
-
-  useEffect(() => {
-    if (montoSolicitado && cuota) {
-      calcularPrestamo();
+    // Validar que el tiempo de pago no sea infinito
+    if (!isFinite(tiempoPagoTotal)) {
+      Alert.alert('Error', 'La cuota debe ser suficiente para cubrir los intereses. Por favor, ingresa una cuota mayor.');
+      return;
     }
-  }, [plazo, montoSolicitado, cuota]);
+
+    setDetallesCalculo({
+      tiempoPago: tiempoPagoTotal,
+      totalPago: (cuotaInput * tiempoPagoTotal).toFixed(2),
+    });
+  };
 
   const handlePlazoChange = (value) => {
     setPlazo(value);
@@ -107,7 +123,7 @@ const Prestamo = () => {
                 style={[styles.plazoButton, plazo === 'mensual' && styles.activeButton]}
                 onPress={() => handlePlazoChange('mensual')}
               >
-                <Text style={styles.buttonText}>Pago mensual</Text>
+                <Text style={styles.buttonText}>Mensual</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.plazoButton, plazo === 'quincenal' && styles.activeButton]}
@@ -135,13 +151,13 @@ const Prestamo = () => {
         <TouchableOpacity style={styles.button} onPress={calcularPrestamo}>
           <Text style={styles.buttonText}>Calcular</Text>
         </TouchableOpacity>
-        {tiempoPago !== null && (
+        {detallesCalculo && (
           <View style={styles.resultContainer}>
             <Text style={styles.resultTitle}>Detalles del cálculo</Text>
             <View style={styles.resultRow}>
               <View style={styles.resultItem}>
                 <Text style={styles.resultLabel}>Terminas de pagar en</Text>
-                <Text style={styles.resultValue}>{tiempoPago} {tiempoPagoTexto()}</Text>
+                <Text style={styles.resultValue}>{detallesCalculo.tiempoPago} {tiempoPagoTexto()}</Text>
               </View>
               <View style={styles.resultItem}>
                 <Text style={styles.resultLabel}>Tasa promedio</Text>
@@ -149,7 +165,7 @@ const Prestamo = () => {
               </View>
             </View>
             <Text style={styles.totalPago}>
-              Al finalizar, habrás pagado un total de ${totalPago}
+              Al finalizar, habrás pagado un total de ${detallesCalculo.totalPago}
             </Text>
           </View>
         )}
@@ -168,147 +184,145 @@ const Prestamo = () => {
           <Text style={styles.infoTitle}>Pasos para adquirir tu préstamo en línea</Text>
           <Text style={styles.infoText}>- Crea tu cuenta</Text>
           <Text style={styles.infoText}>- Regístrate con tu correo electrónico y una contraseña segura.</Text>
-          <Text style={styles.infoText}>- Solicita tu aprobación</Text>
-          <Text style={styles.infoText}>- Autoriza la consulta de tu historial crediticio para conocer tu oferta.</Text>
-          <Text style={styles.infoText}>- Sube tus documentos</Text>
-          <Text style={styles.infoText}>- Ten a la mano INE vigente y si no muestra tu dirección, comprobante de domicilio.</Text>
-          <Text style={styles.infoText}>- Valida tu identidad</Text>
-          <Text style={styles.infoText}>- Confirma tu información a través de una videollamada o una visita presencial.</Text>
-          <Text style={styles.infoText}>- ¡Recibe tu préstamo!</Text>
-          <Text style={styles.infoText}>- Firma tus contratos y recibe el dinero en tu cuenta kubo.ahorro.</Text>
-</View>
-</ScrollView>
-</SafeAreaView>
-);
+          <Text style={styles.infoText}>- Solicita tu préstamo</Text>
+          <Text style={styles.infoText}>- Llena la solicitud con tus datos personales, información de tu empleo y el monto que necesitas.</Text>
+          <Text style={styles.infoText}>- Espera la aprobación</Text>
+          <Text style={styles.infoText}>- Nuestro equipo evaluará tu solicitud y recibirás una respuesta en poco tiempo.</Text>
+          <Text style={styles.infoText}>- Recibe tu préstamo</Text>
+          <Text style={styles.infoText}>- Firma tu contrato y recibe el dinero en tu cuenta bancaria.</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
-container: {
-flex: 1,
-width: '100%',
-alignItems: 'center',
-justifyContent: 'center',
-padding: 30
-},
-title: {
-fontSize: 24,
-fontWeight: 'bold',
-color: 'black',
-marginBottom: 20,
-textAlign: 'center',
-},
-inputContainer: {
-width: '100%',
-marginBottom: 40,
-},
-input: {
-height: 60,
-borderColor: '#ccc',
-color: 'black',
-fontSize: 24,
-borderWidth: 1,
-marginBottom: 10,
-paddingHorizontal: 10,
-borderRadius: 5,
-backgroundColor: '#fff',
-},
-plazoButtonsContainer: {
-marginBottom: 10,
-},
-row: {
-flexDirection: 'row',
-justifyContent: 'space-between',
-marginBottom: 10,
-},
-plazoButton: {
-flex: 1,
-backgroundColor: '#3B58B8',
-borderRadius: 5,
-alignItems: 'center',
-justifyContent: 'center',
-paddingVertical: 12,
-marginHorizontal: 5,
-},
-activeButton: {
-backgroundColor: '#2B2A2A',
-},
-buttonText: {
-fontSize: 18,
-fontWeight: 'bold',
-color: 'white',
-},
-button: {
-width: '100%',
-backgroundColor: '#3B58B8',
-borderRadius: 5,
-alignItems: 'center',
-justifyContent: 'center',
-paddingVertical: 12,
-marginBottom: 20,
-},
-resultContainer: {
-width: '100%',
-backgroundColor: '#fff',
-padding: 16,
-borderRadius: 5,
-borderWidth: 1,
-borderColor: '#ccc',
-marginTop: 20,
-},
-resultTitle: {
-fontSize: 24,
-fontWeight: 'bold',
-color: 'black',
-marginBottom: 10,
-textAlign: 'center',
-},
-resultRow: {
-flexDirection: 'row',
-justifyContent: 'space-between',
-marginBottom: 10,
-},
-resultItem: {
-flex: 1,
-alignItems: 'center',
-},
-resultLabel: {
-fontSize: 14,
-fontWeight: 'bold',
-marginBottom: 5,
-},
-resultValue: {
-fontSize: 16,
-},
-totalPago: {
-fontSize: 16,
-fontWeight: 'bold',
-textAlign: 'center',
-marginTop: 10,
-},
-requirementsContainer: {
-marginTop: 20,
-paddingHorizontal: 20,
-},
-requirementsTitle: {
-fontSize: 24,
-fontWeight: 'bold',
-color: 'black',
-marginBottom: 10,
-},
-infoContainer: {
-paddingHorizontal: 20,
-marginBottom: 20,
-},
-infoTitle: {
-fontSize: 24,
-fontWeight: 'bold',
-color: 'black',
-marginBottom: 10,
-},
-infoText: {
-fontSize: 20,
-marginBottom: 5,
-},
+  container: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 30
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 40,
+  },
+  input: {
+    height: 60,
+    borderColor: '#ccc',
+    color: 'black',
+    fontSize: 24,
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+  },
+  plazoButtonsContainer: {
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  plazoButton: {
+    flex: 1,
+    backgroundColor: '#3B58B8',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    marginHorizontal: 5,
+  },
+  activeButton: {
+    backgroundColor: '#2B2A2A',
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  button: {
+    width: '100%',
+    backgroundColor: '#3B58B8',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    marginBottom: 20,
+  },
+  resultContainer: {
+    width: '100%',
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginTop: 20,
+  },
+  resultTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  resultRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  resultItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  resultLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  resultValue: {
+    fontSize: 16,
+  },
+  totalPago: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  requirementsContainer: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  requirementsTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+    marginBottom: 10,
+  },
+  infoContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  infoTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+    marginBottom: 10,
+  },
+  infoText: {
+    fontSize: 20,
+    marginBottom: 5,
+  },
 });
 
 export default Prestamo;
