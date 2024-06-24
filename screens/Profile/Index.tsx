@@ -26,7 +26,7 @@ function Profile() {
   const [birthMonth, setBirthMonth] = useState('');
   const [birthYear, setBirthYear] = useState('');
   const [photo, setPhoto] = useState(null);
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState('Hombre');
   const [isRegistered, setIsRegistered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -139,18 +139,18 @@ function Profile() {
       </TouchableOpacity>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Nombre</Text>
+        <Text style={styles.inputLabel}>Nombre *</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, !name && styles.inputError]}
           placeholder="Nombre"
           value={name}
           onChangeText={setName}
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Correo</Text>
+        <Text style={styles.inputLabel}>Correo *</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, !email && styles.inputError]}
           placeholder="Correo"
           value={email}
           onChangeText={setEmail}
@@ -158,9 +158,9 @@ function Profile() {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Teléfono</Text>
+        <Text style={styles.inputLabel}>Teléfono *</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, !phone && styles.inputError]}
           placeholder="Teléfono"
           value={phone}
           onChangeText={setPhone}
@@ -168,11 +168,11 @@ function Profile() {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Fecha de Nacimiento</Text>
+        <Text style={styles.inputLabel}>Fecha de Nacimiento *</Text>
         <View style={styles.datePickerContainer}>
-          <Text style={styles.pickerLabel}>Año</Text>
+          <Text style={styles.pickerLabel}>Año *</Text>
           <Picker
-            style={styles.picker}
+            style={[styles.picker, !birthYear && styles.inputError]}
             selectedValue={birthYear}
             onValueChange={value => setBirthYear(value)}
           >
@@ -182,9 +182,9 @@ function Profile() {
           </Picker>
         </View>
         <View style={styles.datePickerContainer}>
-          <Text style={styles.pickerLabel}>Mes</Text>
+          <Text style={styles.pickerLabel}>Mes *</Text>
           <Picker
-            style={styles.picker}
+            style={[styles.picker, !birthMonth && styles.inputError]}
             selectedValue={birthMonth}
             onValueChange={value => setBirthMonth(value)}
           >
@@ -194,9 +194,9 @@ function Profile() {
           </Picker>
         </View>
         <View style={styles.datePickerContainer}>
-          <Text style={styles.pickerLabel}>Día</Text>
+          <Text style={styles.pickerLabel}>Día *</Text>
           <Picker
-            style={styles.picker}
+            style={[styles.picker, !birthDay && styles.inputError]}
             selectedValue={birthDay}
             onValueChange={value => setBirthDay(value)}
           >
@@ -208,9 +208,9 @@ function Profile() {
       </View>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Género</Text>
+        <Text style={styles.inputLabel}>Género *</Text>
         <Picker
-          style={styles.picker}
+          style={[styles.picker, !gender && styles.inputError]}
           selectedValue={gender}
           onValueChange={value => setGender(value)}
         >
@@ -232,7 +232,7 @@ function Profile() {
       </TouchableOpacity>
       <View style={styles.profileInfo}>
         <Text style={styles.profileText}>Hola, {name}.</Text>
-        <Text style={styles.profileText}>Tu cuenta aún está en validación. Se paciente.</Text>
+        <Text style={styles.profileText}>Tu cuenta aún está en validación. Sé paciente.</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleEdit}>
         <Text style={styles.buttonText}>Editar</Text>
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
-    alignItems: 'center',
+    alignItems:     'center',
     justifyContent: 'center',
     paddingVertical: 20,
   },
@@ -287,6 +287,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: '#fff', // Fondo blanco para el input
     color: '#333', // Color de texto oscuro para el input
+  },
+  inputError: {
+    borderColor: 'red', // Bordes rojos para indicar error
   },
   datePickerContainer: {
     flexDirection: 'row',
@@ -384,4 +387,4 @@ const styles = StyleSheet.create({
 });
 
 export default Profile;
-   
+
