@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ImageBackground, Dimensions, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Card, Button, Divider, Image } from 'react-native-elements';
 
@@ -30,6 +30,10 @@ const testimonies = [
     avatar: require('../../assets/images/content/t4.png'),
   },
 ];
+
+const handleVisitWebsite = () => {
+  Linking.openURL('https://alexcarranco23.wixsite.com/mowise');
+};
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -76,11 +80,8 @@ function Home({ navigation }) {
             Mantente al día con las últimas noticias del mundo financiero y económico.
           </Text>
           <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              // Lógica para navegar a la sección de noticias
-              // navigation.navigate('Noticias')
-            }}
+            onPress={handleVisitWebsite}
+            style={styles.visitButton}
           >
             <Text style={styles.buttonText}>Leer noticias</Text>
           </TouchableOpacity>
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
+    fontSize: 18,
     fontWeight: 'bold',
   },
   imageContainer: {
@@ -155,17 +157,34 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  visitButton: {
+    backgroundColor: '#3B58B8',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+    alignSelf: 'center',
+    width: '80%'
+  },
+  visitButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   contentContainer: {
     padding: 20,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: 'black',
     marginTop: 20,
     marginBottom: 10,
   },
   description: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 20,
   },
   testimonyCard: {
@@ -184,6 +203,7 @@ const styles = StyleSheet.create({
   },
   testimonyText: {
     marginBottom: 10,
+    fontSize: 16,
     textAlign: 'center',
   },
   testimonyName: {
@@ -199,11 +219,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  loginButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    
   },
   divider: {
     height: 30,

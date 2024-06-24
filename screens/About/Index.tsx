@@ -103,13 +103,13 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 10,
   },
   description: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 20,
   },
   teamMemberContainer: {
@@ -126,13 +126,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   teamMemberTitle: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     marginTop: 5,
     textAlign: 'center',
   },
   teamMemberContact: {
-    fontSize: 16,
+    fontSize: 20,
     textAlign: 'center',
   },
   visitButton: {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   visitButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   divider: {

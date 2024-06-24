@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: 'black',
     marginBottom: 10,
     textAlign: 'center',
   },
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 20,
   },
 });
 

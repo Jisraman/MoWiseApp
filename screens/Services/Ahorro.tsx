@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   },
   fillerText: {
     marginBottom: 20,
+    fontSize: 20,
     textAlign: 'justify',
   },
   button: {
@@ -112,11 +113,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   buttonText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: 'black',
     marginBottom: 10,
   },
   input: {
@@ -157,13 +161,14 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: 'black',
     marginTop: 20,
     marginBottom: 10,
   },
   description: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 20,
     textAlign: 'center',
   },

@@ -156,26 +156,26 @@ const Prestamo = () => {
         {/* Requisitos */}
         <View style={styles.requirementsContainer}>
           <Text style={styles.requirementsTitle}>Requisitos para el préstamo</Text>
-          <Text>- Tener buen historial crediticio</Text>
-          <Text>- Credencial para votar INE / IFE</Text>
-          <Text>- Comprobante de domicilio</Text>
-          <Text>- Comprobar ingresos de al menos $6,000 MXN al mes</Text>
-          <Text>- Comprobar al menos 6 meses en tu empleo</Text>
+          <Text style={styles.infoText}>- Tener buen historial crediticio</Text>
+          <Text style={styles.infoText}>- Credencial para votar INE / IFE</Text>
+          <Text style={styles.infoText}>- Comprobante de domicilio</Text>
+          <Text style={styles.infoText}>- Comprobar ingresos de al menos $6,000 MXN al mes</Text>
+          <Text style={styles.infoText}>- Comprobar al menos 6 meses en tu empleo</Text>
         </View>
 
         {/* Pasos para adquirir tu préstamo en línea */}
         <View style={styles.infoContainer}>
           <Text style={styles.infoTitle}>Pasos para adquirir tu préstamo en línea</Text>
-          <Text>- Crea tu cuenta</Text>
-          <Text>- Regístrate con tu correo electrónico y una contraseña segura.</Text>
-          <Text>- Solicita tu aprobación</Text>
-          <Text>- Autoriza la consulta de tu historial crediticio para conocer tu oferta.</Text>
-          <Text>- Sube tus documentos</Text>
-          <Text>- Ten a la mano INE vigente y si no muestra tu dirección, comprobante de domicilio.</Text>
-          <Text>- Valida tu identidad</Text>
-          <Text>- Confirma tu información a través de una videollamada o una visita presencial.</Text>
-          <Text>- ¡Recibe tu préstamo!</Text>
-          <Text>- Firma tus contratos y recibe el dinero en tu cuenta kubo.ahorro.</Text>
+          <Text style={styles.infoText}>- Crea tu cuenta</Text>
+          <Text style={styles.infoText}>- Regístrate con tu correo electrónico y una contraseña segura.</Text>
+          <Text style={styles.infoText}>- Solicita tu aprobación</Text>
+          <Text style={styles.infoText}>- Autoriza la consulta de tu historial crediticio para conocer tu oferta.</Text>
+          <Text style={styles.infoText}>- Sube tus documentos</Text>
+          <Text style={styles.infoText}>- Ten a la mano INE vigente y si no muestra tu dirección, comprobante de domicilio.</Text>
+          <Text style={styles.infoText}>- Valida tu identidad</Text>
+          <Text style={styles.infoText}>- Confirma tu información a través de una videollamada o una visita presencial.</Text>
+          <Text style={styles.infoText}>- ¡Recibe tu préstamo!</Text>
+          <Text style={styles.infoText}>- Firma tus contratos y recibe el dinero en tu cuenta kubo.ahorro.</Text>
 </View>
 </ScrollView>
 </SafeAreaView>
@@ -219,7 +219,7 @@ marginBottom: 10,
 },
 plazoButton: {
 flex: 1,
-backgroundColor: '#DDDDDD',
+backgroundColor: '#3B58B8',
 borderRadius: 5,
 alignItems: 'center',
 justifyContent: 'center',
@@ -227,16 +227,16 @@ paddingVertical: 12,
 marginHorizontal: 5,
 },
 activeButton: {
-backgroundColor: 'green',
+backgroundColor: '#2B2A2A',
 },
 buttonText: {
-fontSize: 14,
+fontSize: 18,
 fontWeight: 'bold',
-color: '#333',
+color: 'white',
 },
 button: {
 width: '100%',
-backgroundColor: '#DDDDDD',
+backgroundColor: '#3B58B8',
 borderRadius: 5,
 alignItems: 'center',
 justifyContent: 'center',
@@ -253,8 +253,9 @@ borderColor: '#ccc',
 marginTop: 20,
 },
 resultTitle: {
-fontSize: 18,
+fontSize: 24,
 fontWeight: 'bold',
+color: 'black',
 marginBottom: 10,
 textAlign: 'center',
 },
@@ -286,8 +287,9 @@ marginTop: 20,
 paddingHorizontal: 20,
 },
 requirementsTitle: {
-fontSize: 18,
+fontSize: 24,
 fontWeight: 'bold',
+color: 'black',
 marginBottom: 10,
 },
 infoContainer: {
@@ -295,11 +297,13 @@ paddingHorizontal: 20,
 marginBottom: 20,
 },
 infoTitle: {
-fontSize: 18,
+fontSize: 24,
 fontWeight: 'bold',
+color: 'black',
 marginBottom: 10,
 },
 infoText: {
+fontSize: 20,
 marginBottom: 5,
 },
 });

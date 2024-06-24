@@ -20,9 +20,9 @@ function Services() {
     switch (currentService) {
       case 'Ahorro':
         return <Ahorro />;
-      case 'Prestamos':
+      case 'Préstamos':
         return <Prestamo />;
-      case 'Credito':
+      case 'Crédito':
         return <Credito />;
       case 'Inversiones':
         return <Inversion />;
@@ -84,12 +84,12 @@ function Services() {
                 'La inversión te brinda la oportunidad de hacer crecer tu capital a través de diversos instrumentos financieros.'
               )}
               {renderServicePreview(
-                'Credito',
+                'Crédito',
                 require('../../assets/images/content/services/credito.jpg'),
                 'El crédito te permite acceder a fondos adicionales que puedes usar para compras o necesidades personales, con la obligación de devolverlos en el futuro.'
               )}
               {renderServicePreview(
-                'Prestamos',
+                'Préstamos',
                 require('../../assets/images/content/services/prestamos.jpg'),
                 'Los préstamos te proporcionan una suma de dinero que debes devolver en cuotas a lo largo del tiempo, generalmente con intereses.'
               )}
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   descriptionText: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Lato-Regular',
     textAlign: 'center',
     marginVertical: 20,
@@ -168,12 +168,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   serviceTitle: {
-    fontSize: 18,
+    fontSize: 24,
+    color: 'black',
     fontWeight: 'bold',
     marginBottom: 5,
   },
   serviceDescription: {
-    fontSize: 14,
+    fontSize: 18,
     color: '#666',
     marginBottom: 10,
   },

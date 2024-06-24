@@ -232,7 +232,7 @@ function Profile() {
       </TouchableOpacity>
       <View style={styles.profileInfo}>
         <Text style={styles.profileText}>Hola, {name}.</Text>
-        <Text style={styles.profileText}>Tu cuenta aún está en validación. Se paciente..</Text>
+        <Text style={styles.profileText}>Tu cuenta aún está en validación. Se paciente.</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleEdit}>
         <Text style={styles.buttonText}>Editar</Text>
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileText: {
-    fontSize: 18,
+    fontSize: 20,
     marginBottom: 10,
     color: 'white', // Color de texto oscuro para la información del perfil
   },
