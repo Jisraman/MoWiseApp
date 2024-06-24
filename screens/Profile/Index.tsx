@@ -232,7 +232,7 @@ function Profile() {
       </TouchableOpacity>
       <View style={styles.profileInfo}>
         <Text style={styles.profileText}>Hola, {name}.</Text>
-        <Text style={styles.profileText}>Tu cuenta aún está en validación. Sé paciente.</Text>
+        <Text style={styles.profileText}>Tu cuenta aún está en validación. Se paciente.</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleEdit}>
         <Text style={styles.buttonText}>Editar</Text>
