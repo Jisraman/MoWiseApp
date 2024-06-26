@@ -6,24 +6,27 @@ const calcularCrecimientoAhorro = (montoInicial, tasa) => {
   return montoInicial * (1 + tasa);
 };
 
+const formatNumberWithCommas = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 const Ahorro = () => {
   const [monto, setMonto] = useState('');
   const [resultados, setResultados] = useState([0, 0, 0, 0]);
   const tasaAhorro = 0.146; // Tasa de interés ajustada para un 14.6% de crecimiento
 
   const calcularAhorro = () => {
-    const montoNumerico = parseFloat(monto);
-    if (!isNaN(montoNumerico)&& montoNumerico >= 0) {
+    const montoNumerico = parseFloat(monto.replace(/,/g, ''));
+    if (!isNaN(montoNumerico) && montoNumerico >= 0) {
       const nuevosResultados = [
         calcularCrecimientoAhorro(montoNumerico, 0.103).toFixed(2), // 3 meses
         calcularCrecimientoAhorro(montoNumerico, 0.1047).toFixed(2), // 6 meses
         calcularCrecimientoAhorro(montoNumerico, 0.125).toFixed(2), // 12 meses
         calcularCrecimientoAhorro(montoNumerico, 0.142).toFixed(2), // 18 meses
       ];
-      setResultados(nuevosResultados);
-    } else{
-      Alert.alert('Error', 'El monto debe un monto ser válido.');
-      return;
+      setResultados(nuevosResultados.map(result => formatNumberWithCommas(result)));
+    } else {
+      Alert.alert('Error', 'El monto debe ser válido.');
     }
   };
 
@@ -39,8 +42,8 @@ const Ahorro = () => {
         <TextInput
           style={styles.input}
           keyboardType="numeric"
-          value={monto}
-          onChangeText={(text) => setMonto(text)}
+          value={formatNumberWithCommas(monto)}
+          onChangeText={(text) => setMonto(text.replace(/,/g, ''))}
           placeholder="Ingrese el monto a ahorrar"
         />
 

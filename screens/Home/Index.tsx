@@ -32,7 +32,7 @@ const testimonies = [
 ];
 
 const handleVisitWebsite = () => {
-  Linking.openURL('https://alexcarranco23.wixsite.com/mowise');
+  Linking.openURL('https://www.elfinanciero.com.mx/');
 };
 
 const windowWidth = Dimensions.get('window').width;
