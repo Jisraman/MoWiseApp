@@ -15,6 +15,10 @@ const Prestamo = () => {
     catorcenal: 26,
     semanal: 52,
   };
+  const formatNumberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+  
 
   const calcularPrestamo = () => {
     const monto = parseFloat(montoSolicitado);
@@ -108,20 +112,21 @@ const Prestamo = () => {
         {/* Simulador de préstamos */}
         <Text style={styles.title}>Simulador de Préstamos</Text>
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Monto solicitado"
-            keyboardType="numeric"
-            value={montoSolicitado}
-            onChangeText={(text) => setMontoSolicitado(text)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder={`Cuota ${plazo}`}
-            keyboardType="numeric"
-            value={cuota}
-            onChangeText={(text) => setCuota(text)}
-          />
+        <TextInput
+          style={styles.input}
+          placeholder="Monto solicitado"
+          keyboardType="numeric"
+          value={formatNumberWithCommas(montoSolicitado)}
+          onChangeText={(text) => setMontoSolicitado(text.replace(/,/g, ''))}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder={`Cuota ${plazo}`}
+          keyboardType="numeric"
+          value={formatNumberWithCommas(cuota)}
+          onChangeText={(text) => setCuota(text.replace(/,/g, ''))}
+        />
+
           <View style={styles.plazoButtonsContainer}>
             <View style={styles.row}>
               <TouchableOpacity
@@ -170,7 +175,7 @@ const Prestamo = () => {
               </View>
             </View>
             <Text style={styles.totalPago}>
-              Al finalizar, habrás pagado un total de ${detallesCalculo.totalPago}
+            Al finalizar, habrás pagado un total de ${formatNumberWithCommas(detallesCalculo.totalPago)}
             </Text>
           </View>
         )}
