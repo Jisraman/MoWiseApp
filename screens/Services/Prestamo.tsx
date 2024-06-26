@@ -15,10 +15,10 @@ const Prestamo = () => {
     catorcenal: 26,
     semanal: 52,
   };
+  
   const formatNumberWithCommas = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  
 
   const calcularPrestamo = () => {
     const monto = parseFloat(montoSolicitado);
