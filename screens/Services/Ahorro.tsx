@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Alert } from 'react-native';
 
 // Función para calcular el crecimiento del ahorro
-const calcularCrecimientoAhorro = (montoInicial, tasa, tiempo) => {
-  return montoInicial * (1 + tasa * tiempo);
+const calcularCrecimientoAhorro = (montoInicial, tasa) => {
+  return montoInicial * (1 + tasa);
 };
 
 const Ahorro = () => {
@@ -13,14 +13,17 @@ const Ahorro = () => {
 
   const calcularAhorro = () => {
     const montoNumerico = parseFloat(monto);
-    if (!isNaN(montoNumerico)) {
+    if (!isNaN(montoNumerico)&& montoNumerico >= 0) {
       const nuevosResultados = [
-        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 3).toFixed(2), // 3 meses
-        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 6).toFixed(2), // 6 meses
-        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 12).toFixed(2), // 12 meses
-        calcularCrecimientoAhorro(montoNumerico, tasaAhorro, 18).toFixed(2), // 18 meses
+        calcularCrecimientoAhorro(montoNumerico, 0.103).toFixed(2), // 3 meses
+        calcularCrecimientoAhorro(montoNumerico, 0.1047).toFixed(2), // 6 meses
+        calcularCrecimientoAhorro(montoNumerico, 0.125).toFixed(2), // 12 meses
+        calcularCrecimientoAhorro(montoNumerico, 0.142).toFixed(2), // 18 meses
       ];
       setResultados(nuevosResultados);
+    } else{
+      Alert.alert('Error', 'El monto debe un monto ser válido.');
+      return;
     }
   };
 

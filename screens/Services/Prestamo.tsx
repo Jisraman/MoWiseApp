@@ -5,10 +5,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Prestamo = () => {
   const [montoSolicitado, setMontoSolicitado] = useState('');
   const [cuota, setCuota] = useState('');
-  const [plazo, setPlazo] = useState('mensual');
-  const [tasaPromedio, setTasaPromedio] = useState(12); // Tasa de interés anual del 12%
+  const [plazo,  setPlazo ] = useState('mensual');
+  const [plazoString,  setPlazoString ] = useState('mensual');
+  const [tasaPromedio, setTasaPromedio] = useState(58.4); // Tasa de interés anual del 12%
   const [detallesCalculo, setDetallesCalculo] = useState(null); // Para almacenar los resultados intermedios
-
   const plazos = {
     mensual: 12,
     quincenal: 24,
@@ -19,6 +19,7 @@ const Prestamo = () => {
   const calcularPrestamo = () => {
     const monto = parseFloat(montoSolicitado);
     const cuotaInput = parseFloat(cuota);
+    handlePlazoChangeOnCalc(plazo);
 
     // Validar entrada
     if (isNaN(monto) || isNaN(cuotaInput) || monto <= 0 || cuotaInput <= 0) {
@@ -58,12 +59,16 @@ const Prestamo = () => {
     });
   };
 
+  const handlePlazoChangeOnCalc = (value) => {
+    setPlazoString(value);
+  };
+
   const handlePlazoChange = (value) => {
     setPlazo(value);
   };
 
   const tiempoPagoTexto = () => {
-    switch (plazo) {
+    switch (plazoString) {
       case 'mensual':
         return 'meses';
       case 'quincenal':
@@ -161,7 +166,7 @@ const Prestamo = () => {
               </View>
               <View style={styles.resultItem}>
                 <Text style={styles.resultLabel}>Tasa promedio</Text>
-                <Text style={styles.resultValue}>{tasaPromedio}% anual</Text>
+                <Text style={styles.resultValue}>{tasaPromedio}%</Text>
               </View>
             </View>
             <Text style={styles.totalPago}>
